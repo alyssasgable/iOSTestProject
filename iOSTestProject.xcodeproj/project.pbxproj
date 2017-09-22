@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2919C6E61F7368540032F4EA /* ModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2919C6E51F7368540032F4EA /* ModeViewController.swift */; };
+		294D4ED61F7314F300480DA7 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D4ED51F7314F300480DA7 /* FeedCell.swift */; };
 		DE0B68791E3AC01B00981FCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0B68781E3AC01B00981FCA /* AppDelegate.swift */; };
 		DE0B687B1E3AC01B00981FCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0B687A1E3AC01B00981FCA /* ViewController.swift */; };
 		DE0B687E1E3AC01B00981FCA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0B687C1E3AC01B00981FCA /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2919C6E51F7368540032F4EA /* ModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeViewController.swift; sourceTree = "<group>"; };
+		294D4ED51F7314F300480DA7 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		DE0B68751E3AC01B00981FCA /* iOSTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0B68781E3AC01B00981FCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE0B687A1E3AC01B00981FCA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,10 +60,12 @@
 			children = (
 				DE0B68781E3AC01B00981FCA /* AppDelegate.swift */,
 				DE0B687A1E3AC01B00981FCA /* ViewController.swift */,
+				2919C6E51F7368540032F4EA /* ModeViewController.swift */,
 				DE0B687C1E3AC01B00981FCA /* Main.storyboard */,
 				DE0B687F1E3AC01B00981FCA /* Assets.xcassets */,
 				DE0B68811E3AC01B00981FCA /* LaunchScreen.storyboard */,
 				DE0B68841E3AC01B00981FCA /* Info.plist */,
+				294D4ED51F7314F300480DA7 /* FeedCell.swift */,
 			);
 			path = iOSTestProject;
 			sourceTree = "<group>";
@@ -138,6 +144,8 @@
 			files = (
 				DE0B687B1E3AC01B00981FCA /* ViewController.swift in Sources */,
 				DE0B68791E3AC01B00981FCA /* AppDelegate.swift in Sources */,
+				294D4ED61F7314F300480DA7 /* FeedCell.swift in Sources */,
+				2919C6E61F7368540032F4EA /* ModeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
