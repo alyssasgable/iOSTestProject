@@ -11,10 +11,9 @@ import UIKit
 class ViewController: UITableViewController {
     
     @IBOutlet weak var modeBtn: UIButton!
+    
     var tableObjects = [[String: Any]]()
     
-    
-    //@IBOutlet weak var darkHarley: UIButton!
     var isHarleyRed:Bool = true
     
     
@@ -24,11 +23,20 @@ class ViewController: UITableViewController {
         // Use this array to build your test project
         tableObjects = AppDelegate().downloadArray()
         
+        //Makes sure the last mode chosen appears
+        
+        if UserDefaults.standard.bool(forKey: "mode") == true {
+            buttonPressed(bool: !isHarleyRed)
+        } else {
+            buttonPressed(bool: isHarleyRed)
+        }
+
         
     }
-    // Dark and Light Mode Function
+    // Dark and Light Mode Functions
     @IBAction func modeBtn(_ sender: Any) {
         buttonPressed(bool: !isHarleyRed)
+        
     }
     
     
@@ -38,11 +46,14 @@ class ViewController: UITableViewController {
         let image = bool ? #imageLiteral(resourceName: "harleylight") : #imageLiteral(resourceName: "harleydark")
         let color = bool ? UIColor.white : UIColor.black
         let textColor = bool ? UIColor.black : UIColor.white
+        let mode = bool ? false : true
         
         modeBtn.setImage(image, for: .normal)
         navigationController?.navigationBar.barTintColor = color
         tableView.backgroundColor = color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
+        UserDefaults.standard.set(mode, forKey: "mode")
+        
 
     }
     
