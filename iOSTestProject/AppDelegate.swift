@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        downloadArray()
         return true
     }
 
@@ -41,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func downloadArray() -> [[String: Any]] {
+    func downloadArray() {
         let requestURL: URL = URL(string: "https://apps.myocv.com/feed/blog/a12722222/ipsumList")!
         let urlRequest: URLRequest = URLRequest(url: requestURL)
         let session = URLSession.shared
@@ -69,13 +70,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         
                         self.feedArray.append(["title": title, "epoch": epoch, "content":content, "images":images])
                     }
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue:("finishedDownload")), object: self.feedArray)
                 } catch {
                     print("Error downloading JSON")
                 }
             }
         }
         task.resume()
-        return feedArray
+        
     }
 }
 

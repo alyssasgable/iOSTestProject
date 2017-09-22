@@ -20,8 +20,11 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Use this array to build your test project
-        tableObjects = AppDelegate().downloadArray()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:("finishedDownload")), object: nil, queue: nil, using: { (notification) in
+            
+            self.tableObjects = notification.object as! [[String: Any]]
+            self.tableView.reloadData()
+        })
         
         //Makes sure the last mode chosen appears
         
@@ -81,6 +84,9 @@ class ViewController: UITableViewController {
 
         cell.title?.text = tableObjects["title"] as? String
         cell.epoch?.text = tableObjects["epoch"] as? String
+        cell.content?.text = tableObjects["content"] as? String
+        cell.img?.image = tableObjects["images"] as? UIImage
+        
         return cell
     }
 }
