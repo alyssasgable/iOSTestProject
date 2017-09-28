@@ -16,6 +16,9 @@ class ViewController: UITableViewController {
     
     var isHarleyRed:Bool = true
     
+    var passedTitle: String?
+    var passedContent: String?
+    var passedDate: String?
     
     
     override func viewDidLoad() {
@@ -122,9 +125,21 @@ class ViewController: UITableViewController {
 //    }
 //    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            
+            let destVC = segue.destination as! DetailView
+            destVC.titleText = passedTitle
+            destVC.dateText = passedDate
+            destVC.contentText  = passedContent
         
+        }
     }
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let currentCell = tableView.cellForRow(at: indexPath)! as! FeedCell
+    
+        passedTitle = currentCell.title.text
+        passedDate = currentCell.date.text
+        passedContent = currentCell.content.text
         self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }

@@ -10,9 +10,30 @@ import UIKit
 
 class DetailView: UIViewController {
     
+    var titleText: String?
+    var dateText: String?
+    var contentText: String?
+    
+   
+    @IBOutlet var bigTitle: UILabel!
+    
+    @IBOutlet var bigDate: UILabel!
+    
+    @IBOutlet var bigContent: UILabel!
+    
     @IBOutlet weak var modeBtn: UIButton!
     var isHarleyRed:Bool = true
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let titleText = titleText {
+            bigTitle.text = titleText
+            bigDate.text = dateText
+            bigContent.text = contentText
+            bigContent.sizeToFit()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
