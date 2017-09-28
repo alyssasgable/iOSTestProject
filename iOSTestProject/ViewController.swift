@@ -89,11 +89,11 @@ class ViewController: UITableViewController {
         
         let tableObjects = self.tableObjects[indexPath.row]
         
-        
+        let contentString = tableObjects["content"] as? String
         
         cell.title?.text = tableObjects["title"] as? String
         cell.date?.text = tableObjects["sec"] as? String
-        cell.content?.text = tableObjects["content"] as? String
+        cell.content?.text = contentString?.html2String
         
         //Downloading Image
         
@@ -163,7 +163,19 @@ extension UIImageView {
         }
 }
 
-
+extension String {
+    var html2AttributedString: NSAttributedString? {
+        do {
+            return try NSAttributedString(data: Data(utf8), options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            print("error:", error)
+            return nil
+        }
+    }
+    var html2String: String {
+        return html2AttributedString?.string ?? ""
+    }
+}
     
 
 
