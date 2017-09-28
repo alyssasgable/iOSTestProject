@@ -19,6 +19,7 @@ class ViewController: UITableViewController {
     var passedTitle: String?
     var passedContent: String?
     var passedDate: String?
+    var passedFirstImg: UIImage?
     
     
     override func viewDidLoad() {
@@ -59,11 +60,12 @@ class ViewController: UITableViewController {
         modeBtn.setImage(image, for: .normal)
         navigationController?.navigationBar.barTintColor = color
         tableView.backgroundColor = color
-       
+        UserDefaults.standard.set(mode, forKey: "mode")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:("buttonPressed")), object: textColor)
         
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
-        UserDefaults.standard.set(mode, forKey: "mode")
         
+        self.tableView.reloadData()
         
     }
     
@@ -94,43 +96,40 @@ class ViewController: UITableViewController {
         cell.title?.text = tableObjects["title"] as? String
         cell.date?.text = tableObjects["sec"] as? String
         cell.content?.text = contentString?.html2String
+       
+        let imagesArray = tableObjects["images"] as! [[String:String]]
+        if imagesArray.count != 0 {
+        let imageObject = imagesArray[0]
+        let smallImage = imageObject["small"] ?? ""
         
-        //Downloading Image
+        cell.img.downloadedFrom(link: smallImage)
+        }
         
-//            let url = URL(string: tableObjects["small"] as! String)
-//            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-//                
-//                if error != nil {
-//                    print(error!)
-//                    return
-//                }
-//                
-//                DispatchQueue.main.async {
-//                    cell.img.image = UIImage(data: data!)
-//                }
-//            }).resume()
-        
-
+        var colorOfText = UIColor.black
+        if UserDefaults.standard.bool(forKey: "mode") {
+            
+            colorOfText = UIColor.white
+            
+        }
+        cell.title?.textColor = colorOfText
+        cell.date?.textColor = colorOfText
+        cell.content?.textColor = colorOfText
         
         return cell
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetail" ,
-//            let detailView = segue.destination as? DetailViewController ,
-//            let indexPath = self.tableView.indexPathForSelectedRow {
-//            let selectedVehicle = vehicles[indexPath.row]
-//            nextScene.currentVehicle = selectedVehicle
-//        }
-//    }
-//    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             
+            
             let destVC = segue.destination as! DetailView
+            
+            destVC.isHarleyRed = isHarleyRed
             destVC.titleText = passedTitle
             destVC.dateText = passedDate
             destVC.contentText  = passedContent
+            destVC.FirstImage = passedFirstImg
         
         }
     }
@@ -140,29 +139,31 @@ class ViewController: UITableViewController {
         passedTitle = currentCell.title.text
         passedDate = currentCell.date.text
         passedContent = currentCell.content.text
+        passedFirstImg = currentCell.img.image
         self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }
 
-extension UIImageView {
-    func downloadImage(_ url_str:String, _imageView:UIImageView) {
-        let url:URL = URL(string: url_str)!
-       let session = URLSession.shared
-        let task = session.dataTask(with: url, completionHandler: { (data,response,error) in
-            
-            if data != nil {
-                let image = UIImage(data:data!)
-                if(image != nil) {
-                    DispatchQueue.main.async(execute: {
-                        _imageView.image = image
-                    })
-                }
+ extension UIImageView {
+    func downloadedFrom(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() {
+                self.image = image
             }
-            })
-            task.resume()
-        }
+            }.resume()
+    }
+    func downloadedFrom(link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        guard let url = URL(string: link) else { return }
+        downloadedFrom(url: url, contentMode: mode)
+    }
 }
-
 extension String {
     var html2AttributedString: NSAttributedString? {
         do {

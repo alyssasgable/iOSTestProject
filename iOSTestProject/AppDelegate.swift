@@ -71,7 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.feedArray.append(["title": title, "epoch": epoch, "content":content, "images":images])
                     }
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue:("finishedDownload")), object: self.feedArray)
-                    
                 } catch {
                     print("Error downloading JSON")
                 }

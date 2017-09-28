@@ -13,6 +13,7 @@ class DetailView: UIViewController {
     var titleText: String?
     var dateText: String?
     var contentText: String?
+    var FirstImage: UIImage?
     
    
     @IBOutlet var bigTitle: UILabel!
@@ -21,17 +22,23 @@ class DetailView: UIViewController {
     
     @IBOutlet var bigContent: UILabel!
     
+    @IBOutlet var FirstImg: UIImageView!
+    
     @IBOutlet weak var modeBtn: UIButton!
     var isHarleyRed:Bool = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if isHarleyRed == false {
+            buttonPressed(bool: isHarleyRed)
+        }
         if let titleText = titleText {
             bigTitle.text = titleText
             bigDate.text = dateText
             bigContent.text = contentText
             bigContent.sizeToFit()
+            FirstImg.image = FirstImage
+            
         }
     }
     override func viewDidLoad() {
@@ -60,6 +67,9 @@ class DetailView: UIViewController {
         let mode = bool ? false : true
         
         modeBtn.setImage(image, for: .normal)
+        bigTitle.textColor = textColor
+        bigDate.textColor = textColor
+        bigContent.textColor = textColor
         navigationController?.navigationBar.barTintColor = color
         self.view.backgroundColor = color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
