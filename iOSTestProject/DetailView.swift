@@ -14,6 +14,7 @@ class DetailView: UIViewController {
     var dateText: String?
     var contentText: String?
     var FirstImage: UIImage?
+    var ImageArray = [String:Any]()
     
    
     @IBOutlet var bigTitle: UILabel!

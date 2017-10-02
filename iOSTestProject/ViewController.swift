@@ -20,6 +20,7 @@ class ViewController: UITableViewController {
     var passedContent: String?
     var passedDate: String?
     var passedFirstImg: UIImage?
+    var passedImageArray = [String]()
     
     
     override func viewDidLoad() {
@@ -75,6 +76,23 @@ class ViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
+        var shownIndexes : [IndexPath] = []
+        
+        if (shownIndexes.contains(indexPath) == false) {
+            shownIndexes.append(indexPath)
+            
+            cell.transform = CGAffineTransform(translationX: 0, y: 250)
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOffset = CGSize(width: 10, height: 10)
+            cell.alpha = 0
+            
+            UIView.beginAnimations("rotation", context: nil)
+            UIView.setAnimationDuration(0.5)
+            cell.transform = CGAffineTransform(translationX: 0, y: 0)
+            cell.alpha = 1
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            UIView.commitAnimations()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,28 +115,29 @@ class ViewController: UITableViewController {
         
         //Date converter
         let epoch = tableObjects["epoch"] as? Int
+
         let date = NSDate(timeIntervalSince1970: (TimeInterval((epoch)!)))
         let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "MMM dd YYYY"
-        
-        
+        dayTimePeriodFormatter.dateFormat = "MMM dd YYYY hh:mm a"
         let convertedDate = dayTimePeriodFormatter.string(from: date as Date)
         
         cell.date?.text = convertedDate
+        
         cell.content?.text = contentString?.html2String
        
         let imagesArray = tableObjects["images"] as! [[String:String]]
         if imagesArray.count != 0 {
-           
         let imageObject = imagesArray[0]
             
         let smallImage = imageObject["small"] ?? ""
         
+            
         cell.img.downloadedFrom(link: smallImage)
     
         } else if imagesArray.isEmpty {
             cell.img.image = nil
         }
+        //Changes color of text
         var colorOfText = UIColor.black
         if UserDefaults.standard.bool(forKey: "mode") {
             
@@ -132,6 +151,17 @@ class ViewController: UITableViewController {
         return cell
     }
     
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at: indexPath)! as! FeedCell
+        
+        passedTitle = currentCell.title.text
+        passedDate = currentCell.date.text
+        passedContent = currentCell.content.text
+        passedFirstImg = currentCell.img.image
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
@@ -147,15 +177,7 @@ class ViewController: UITableViewController {
         
         }
     }
-   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let currentCell = tableView.cellForRow(at: indexPath)! as! FeedCell
-    
-        passedTitle = currentCell.title.text
-        passedDate = currentCell.date.text
-        passedContent = currentCell.content.text
-        passedFirstImg = currentCell.img.image
-        self.performSegue(withIdentifier: "showDetail", sender: nil)
-    }
+  
 }
 
  extension UIImageView {
