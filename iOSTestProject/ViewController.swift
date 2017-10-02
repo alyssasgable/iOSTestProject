@@ -94,17 +94,31 @@ class ViewController: UITableViewController {
         let contentString = tableObjects["content"] as? String
         
         cell.title?.text = tableObjects["title"] as? String
-        cell.date?.text = tableObjects["sec"] as? String
+        
+        //Date converter
+        let epoch = tableObjects["epoch"] as? Int
+        let date = NSDate(timeIntervalSince1970: (TimeInterval((epoch)!)))
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "MMM dd YYYY"
+        
+        
+        let convertedDate = dayTimePeriodFormatter.string(from: date as Date)
+        
+        cell.date?.text = convertedDate
         cell.content?.text = contentString?.html2String
        
         let imagesArray = tableObjects["images"] as! [[String:String]]
         if imagesArray.count != 0 {
+           
         let imageObject = imagesArray[0]
+            
         let smallImage = imageObject["small"] ?? ""
         
         cell.img.downloadedFrom(link: smallImage)
+    
+        } else if imagesArray.isEmpty {
+            cell.img.image = nil
         }
-        
         var colorOfText = UIColor.black
         if UserDefaults.standard.bool(forKey: "mode") {
             
