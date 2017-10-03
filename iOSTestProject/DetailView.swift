@@ -20,6 +20,7 @@ class DetailView: UIViewController, UICollectionViewDataSource, UICollectionView
     @IBOutlet var bigDate: UILabel!
     @IBOutlet var bigContent: UILabel!
     @IBOutlet weak var modeBtn: UIButton!
+    @IBOutlet var shareButton: UIButton!
    
     
     
@@ -49,6 +50,12 @@ class DetailView: UIViewController, UICollectionViewDataSource, UICollectionView
         
         
     }
+    @IBAction func sharePost(_ sender: Any) {
+        let activityVC = UIActivityViewController(activityItems: [ImageArray[0],titleText!], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

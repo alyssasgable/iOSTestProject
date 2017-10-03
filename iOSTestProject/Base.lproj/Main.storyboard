@@ -173,6 +173,14 @@
                                             <outlet property="delegate" destination="iVe-cD-wvJ" id="N2f-zf-m4p"/>
                                         </connections>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVk-lb-ocl">
+                                        <rect key="frame" x="332" y="-56" width="40" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Share"/>
+                                        <connections>
+                                            <action selector="sharePost:" destination="iVe-cD-wvJ" eventType="touchUpInside" id="G32-AL-zke"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="TsG-q7-yNP" firstAttribute="leading" secondItem="55P-Ao-dAS" secondAttribute="leading" constant="75" id="90W-ZI-VMc"/>
@@ -227,6 +235,7 @@
                         <outlet property="bigDate" destination="7HR-zj-qww" id="cPt-W6-rxi"/>
                         <outlet property="bigTitle" destination="TsG-q7-yNP" id="cVS-3s-As5"/>
                         <outlet property="modeBtn" destination="ZOz-n5-rki" id="XAv-KW-lfV"/>
+                        <outlet property="shareButton" destination="bVk-lb-ocl" id="IwS-py-DRa"/>
                         <segue destination="5J2-Kr-HGO" kind="show" identifier="fullImage" id="kGH-s0-LF4"/>
                     </connections>
                 </viewController>
