@@ -16,12 +16,14 @@ class ViewController: UITableViewController {
     
     var isHarleyRed:Bool = true
     
-    var passedTitle: String?
-    var passedContent: String?
-    var passedDate: String?
-    var passedFirstImg: UIImage?
-    var passedImageArray = [String]()
+    struct cellObject {
+        var passedTitle: String?
+        var passedContent: String?
+        var passedDate: String?
+        var passedImageArray = [String]()
+    }
     
+    var cellObjects = [cellObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,8 +112,9 @@ class ViewController: UITableViewController {
         let tableObjects = self.tableObjects[indexPath.row]
         
         let contentString = tableObjects["content"] as? String
-        
-        cell.title?.text = tableObjects["title"] as? String
+    
+        let title = tableObjects["title"] as? String
+        cell.title?.text = title
         
         //Date converter
         let epoch = tableObjects["epoch"] as? Int
@@ -121,18 +124,24 @@ class ViewController: UITableViewController {
         dayTimePeriodFormatter.dateFormat = "MMM dd YYYY hh:mm a"
         let convertedDate = dayTimePeriodFormatter.string(from: date as Date)
         
+        
         cell.date?.text = convertedDate
         
-        cell.content?.text = contentString?.html2String
+        let convertedString = contentString?.html2String
+        cell.content?.text = convertedString
        
         let imagesArray = tableObjects["images"] as! [[String:String]]
-        if imagesArray.count != 0 {
-        let imageObject = imagesArray[0]
-            
-        let smallImage = imageObject["small"] ?? ""
+        var smallImageArray = [String]()
+        var largeImageArray = [String]()
         
-            
-        cell.img.downloadedFrom(link: smallImage)
+    
+        if imagesArray.count != 0 {
+            for imageObject in imagesArray {
+                smallImageArray.append(imageObject["small"]!)
+                largeImageArray.append(imageObject["large"]!)
+            }
+
+            cell.img.downloadedFrom(link: smallImageArray[0])
     
         } else if imagesArray.isEmpty {
             cell.img.image = nil
@@ -148,32 +157,31 @@ class ViewController: UITableViewController {
         cell.date?.textColor = colorOfText
         cell.content?.textColor = colorOfText
         
+        cellObjects.append(cellObject(passedTitle: title, passedContent: convertedString, passedDate: convertedDate, passedImageArray: largeImageArray))
+        
         return cell
     }
     
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath)! as! FeedCell
-        
-        passedTitle = currentCell.title.text
-        passedDate = currentCell.date.text
-        passedContent = currentCell.content.text
-        passedFirstImg = currentCell.img.image
-        self.performSegue(withIdentifier: "showDetail", sender: nil)
+//        let currentCell = tableView.cellForRow(at: indexPath)!
+       
+        let selectedObject = cellObjects[indexPath.row]
+        self.performSegue(withIdentifier: "showDetail", sender: selectedObject)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             
-            
+            let currentCell = sender as! cellObject
             let destVC = segue.destination as! DetailView
             
             destVC.isHarleyRed = isHarleyRed
-            destVC.titleText = passedTitle
-            destVC.dateText = passedDate
-            destVC.contentText  = passedContent
-            destVC.FirstImage = passedFirstImg
+            destVC.titleText = currentCell.passedTitle
+            destVC.dateText = currentCell.passedDate
+            destVC.contentText  = currentCell.passedContent
+            destVC.LargeImageArray = currentCell.passedImageArray
         
         }
     }

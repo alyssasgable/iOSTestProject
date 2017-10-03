@@ -13,19 +13,14 @@ class DetailView: UIViewController {
     var titleText: String?
     var dateText: String?
     var contentText: String?
-    var FirstImage: UIImage?
-    var ImageArray = [String:Any]()
+    var LargeImageArray = [String]()
     
    
     @IBOutlet var bigTitle: UILabel!
-    
     @IBOutlet var bigDate: UILabel!
-    
     @IBOutlet var bigContent: UILabel!
-    
-    @IBOutlet var FirstImg: UIImageView!
-    
     @IBOutlet weak var modeBtn: UIButton!
+
     var isHarleyRed:Bool = true
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,8 +33,6 @@ class DetailView: UIViewController {
             bigDate.text = dateText
             bigContent.text = contentText
             bigContent.sizeToFit()
-            FirstImg.image = FirstImage
-            
         }
     }
     override func viewDidLoad() {
@@ -58,6 +51,32 @@ class DetailView: UIViewController {
         
     }
     
+    //Collection View
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("gallery count : \(self.LargeImageArray.count)")
+        return self.LargeImageArray.count
+    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
+        
+        let image = UIImageView()
+        cell.addSubview(image)
+        image.frame = cell.frame
+        image.downloadedFrom(link:LargeImageArray[indexPath.row])
+        
+//        if let imgUrl = LargeImageArray[indexPath.row] {
+//            if let url = URL(string: imgUrl) {
+//                cell.cellImage.sd_setImageWithURL(url, placeholderImage: UIImage(named: "place holder image"), options: .lowPriority)
+//            }
+        //}
+        return cell
+    }
     
     func buttonPressed(bool: Bool) {
         isHarleyRed = bool

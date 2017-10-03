@@ -18,7 +18,11 @@ class FeedCell: UITableViewCell {
     
     @IBOutlet weak var img: UIImageView!
     
-    
+//    override func layoutSubviews() {
+//        img.layer.cornerRadius = img.bounds.height / 2
+//        img.clipsToBounds = true
+//    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
