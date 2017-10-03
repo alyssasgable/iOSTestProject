@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2919222A1F7C33BA0081DD93 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291922291F7C33BA0081DD93 /* DetailView.swift */; };
+		292B8B701F836E14002B5C2D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292B8B6F1F836E14002B5C2D /* CollectionViewCell.swift */; };
 		294D4ED61F7314F300480DA7 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D4ED51F7314F300480DA7 /* FeedCell.swift */; };
 		DE0B68791E3AC01B00981FCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0B68781E3AC01B00981FCA /* AppDelegate.swift */; };
 		DE0B687B1E3AC01B00981FCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0B687A1E3AC01B00981FCA /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		291922291F7C33BA0081DD93 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		292B8B6F1F836E14002B5C2D /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		294D4ED51F7314F300480DA7 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		DE0B68751E3AC01B00981FCA /* iOSTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0B68781E3AC01B00981FCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				DE0B687F1E3AC01B00981FCA /* Assets.xcassets */,
 				DE0B68811E3AC01B00981FCA /* LaunchScreen.storyboard */,
 				DE0B68841E3AC01B00981FCA /* Info.plist */,
+				292B8B6F1F836E14002B5C2D /* CollectionViewCell.swift */,
 			);
 			path = iOSTestProject;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				292B8B701F836E14002B5C2D /* CollectionViewCell.swift in Sources */,
 				DE0B687B1E3AC01B00981FCA /* ViewController.swift in Sources */,
 				DE0B68791E3AC01B00981FCA /* AppDelegate.swift in Sources */,
 				294D4ED61F7314F300480DA7 /* FeedCell.swift in Sources */,

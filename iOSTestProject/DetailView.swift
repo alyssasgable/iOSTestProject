@@ -8,19 +8,20 @@
 
 import UIKit
 
-class DetailView: UIViewController {
+class DetailView: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var titleText: String?
     var dateText: String?
     var contentText: String?
     var LargeImageArray = [String]()
-    
+    var ImageArray = [UIImage]()
    
     @IBOutlet var bigTitle: UILabel!
     @IBOutlet var bigDate: UILabel!
     @IBOutlet var bigContent: UILabel!
     @IBOutlet weak var modeBtn: UIButton!
-
+    
+    
     var isHarleyRed:Bool = true
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,9 +38,45 @@ class DetailView: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        createImageArray()
         // Do any additional setup after loading the view.
     }
+
+    func createImageArray() {
+        //let imageView = UIImageView()
+        
+        for i in 0..<LargeImageArray.count {
+            
+            let imgUrl = LargeImageArray[i]
+            let url = URL(string: imgUrl)
+            
+            
+            if let imageData: NSData = NSData(contentsOf: url!) {
+            self.ImageArray.append(UIImage(data: imageData as Data)!)
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return LargeImageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! CollectionViewCell
+        
+        
+        cell.cellImageView.image = ImageArray[indexPath.row]
+        
+    
+                return cell
+            }
+//            let xPosition = self.view.frame.width * CGFloat(i)
+//            imageView.frame = CGRect(x: xPosition, y: 0, width: self.ScrollView.frame.width, height: self.ScrollView.frame.height)
+//            
+//            ScrollView.contentSize.width = ScrollView.contentSize.width * CGFloat(i + 1)
+//            ScrollView.addSubview(imageView)
+//    }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,33 +86,6 @@ class DetailView: UIViewController {
     @IBAction func modeBtn(_ sender: Any) {
         buttonPressed(bool: !isHarleyRed)
         
-    }
-    
-    //Collection View
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("gallery count : \(self.LargeImageArray.count)")
-        return self.LargeImageArray.count
-    }
-
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath)
-        
-        let image = UIImageView()
-        cell.addSubview(image)
-        image.frame = cell.frame
-        image.downloadedFrom(link:LargeImageArray[indexPath.row])
-        
-//        if let imgUrl = LargeImageArray[indexPath.row] {
-//            if let url = URL(string: imgUrl) {
-//                cell.cellImage.sd_setImageWithURL(url, placeholderImage: UIImage(named: "place holder image"), options: .lowPriority)
-//            }
-        //}
-        return cell
     }
     
     func buttonPressed(bool: Bool) {
@@ -98,3 +108,5 @@ class DetailView: UIViewController {
         
     }
     }
+
+
