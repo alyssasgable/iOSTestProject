@@ -227,11 +227,51 @@
                         <outlet property="bigDate" destination="7HR-zj-qww" id="cPt-W6-rxi"/>
                         <outlet property="bigTitle" destination="TsG-q7-yNP" id="cVS-3s-As5"/>
                         <outlet property="modeBtn" destination="ZOz-n5-rki" id="XAv-KW-lfV"/>
+                        <segue destination="5J2-Kr-HGO" kind="show" identifier="fullImage" id="kGH-s0-LF4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJ7-Jm-oEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="741.60000000000002" y="90.404797601199405"/>
+        </scene>
+        <!--Full Image View Controller-->
+        <scene sceneID="OSB-1o-gRj">
+            <objects>
+                <viewController id="5J2-Kr-HGO" customClass="FullImageViewController" customModule="iOSTestProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G3p-gT-QmV"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pr5-xA-01A"/>
+                    </layoutGuides>
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="sna-A9-qjW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RmO-AP-Bls">
+                                <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gtW-Dr-tji">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <connections>
+                            <outlet property="delegate" destination="5J2-Kr-HGO" id="Z2E-mY-nPI"/>
+                        </connections>
+                    </scrollView>
+                    <connections>
+                        <outlet property="Background" destination="RmO-AP-Bls" id="orI-YL-IpG"/>
+                        <outlet property="View" destination="RmO-AP-Bls" id="Pyz-YK-s5F"/>
+                        <outlet property="scrollView" destination="sna-A9-qjW" id="r0q-Qu-r3p"/>
+                        <outlet property="selectedImage" destination="gtW-Dr-tji" id="s4q-JO-fhW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mor-d6-hFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1466.4000000000001" y="89.505247376311857"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oOA-Mc-D1c">

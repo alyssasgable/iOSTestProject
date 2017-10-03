@@ -20,9 +20,34 @@ class DetailView: UIViewController, UICollectionViewDataSource, UICollectionView
     @IBOutlet var bigDate: UILabel!
     @IBOutlet var bigContent: UILabel!
     @IBOutlet weak var modeBtn: UIButton!
+   
     
     
     var isHarleyRed:Bool = true
+    @IBAction func modeBtn(_ sender: Any) {
+        buttonPressed(bool: !isHarleyRed)
+        
+    }
+    
+    func buttonPressed(bool: Bool) {
+        isHarleyRed = bool
+        
+        let image = bool ? #imageLiteral(resourceName: "harleylight") : #imageLiteral(resourceName: "harleydark")
+        let color = bool ? UIColor.white : UIColor.black
+        let textColor = bool ? UIColor.black : UIColor.white
+        let mode = bool ? false : true
+        
+        modeBtn.setImage(image, for: .normal)
+        bigTitle.textColor = textColor
+        bigDate.textColor = textColor
+        bigContent.textColor = textColor
+        navigationController?.navigationBar.barTintColor = color
+        self.view.backgroundColor = color
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
+        UserDefaults.standard.set(mode, forKey: "mode")
+        
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,52 +86,39 @@ class DetailView: UIViewController, UICollectionViewDataSource, UICollectionView
         return LargeImageArray.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        collectionView.backgroundColor = UIColor.clear
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! CollectionViewCell
-        
-        
         cell.cellImageView.image = ImageArray[indexPath.row]
-        
-    
                 return cell
             }
-//            let xPosition = self.view.frame.width * CGFloat(i)
-//            imageView.frame = CGRect(x: xPosition, y: 0, width: self.ScrollView.frame.width, height: self.ScrollView.frame.height)
-//            
-//            ScrollView.contentSize.width = ScrollView.contentSize.width * CGFloat(i + 1)
-//            ScrollView.addSubview(imageView)
-//    }
-//    }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedObject = ImageArray[indexPath.row]
+        self.performSegue(withIdentifier: "fullImage", sender: selectedObject)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fullImage" {
+            
+            let currentCell = sender
+            let currentImage = currentCell
+            let fullImage = segue.destination as! FullImageViewController
+            
+            fullImage.isHarleyRed = isHarleyRed
+            fullImage.fullImage = currentImage as! UIImage
+        }
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func modeBtn(_ sender: Any) {
-        buttonPressed(bool: !isHarleyRed)
-        
-    }
     
-    func buttonPressed(bool: Bool) {
-        isHarleyRed = bool
-        
-        let image = bool ? #imageLiteral(resourceName: "harleylight") : #imageLiteral(resourceName: "harleydark")
-        let color = bool ? UIColor.white : UIColor.black
-        let textColor = bool ? UIColor.black : UIColor.white
-        let mode = bool ? false : true
-        
-        modeBtn.setImage(image, for: .normal)
-        bigTitle.textColor = textColor
-        bigDate.textColor = textColor
-        bigContent.textColor = textColor
-        navigationController?.navigationBar.barTintColor = color
-        self.view.backgroundColor = color
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
-        UserDefaults.standard.set(mode, forKey: "mode")
-        
-        
-    }
     }
 
 
