@@ -21,12 +21,14 @@ class FullImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         if isHarleyRed == true {
             navigationController?.navigationBar.barTintColor = UIColor.white
-            scrollView.backgroundColor = UIColor.white
-            Background.backgroundColor = UIColor.white
+            scrollView.backgroundColor = UIColor.clear
+            Background.backgroundColor = UIColor.clear
+            self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "lightBackground"))
         } else {
             navigationController?.navigationBar.barTintColor = UIColor.black
-            scrollView.backgroundColor = UIColor.black
-            Background.backgroundColor = UIColor.black
+            scrollView.backgroundColor = UIColor.clear
+            Background.backgroundColor = UIColor.clear
+            self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "darkBackground"))
         }
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 6.0

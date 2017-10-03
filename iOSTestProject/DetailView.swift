@@ -34,6 +34,7 @@ class DetailView: UIViewController, UICollectionViewDataSource, UICollectionView
         
         let image = bool ? #imageLiteral(resourceName: "harleylight") : #imageLiteral(resourceName: "harleydark")
         let color = bool ? UIColor.white : UIColor.black
+        let background = bool ? #imageLiteral(resourceName: "lightBackground") : #imageLiteral(resourceName: "darkBackground")
         let textColor = bool ? UIColor.black : UIColor.white
         let mode = bool ? false : true
         
@@ -42,7 +43,7 @@ class DetailView: UIViewController, UICollectionViewDataSource, UICollectionView
         bigDate.textColor = textColor
         bigContent.textColor = textColor
         navigationController?.navigationBar.barTintColor = color
-        self.view.backgroundColor = color
+        self.view.backgroundColor = UIColor(patternImage: background)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
         UserDefaults.standard.set(mode, forKey: "mode")
         

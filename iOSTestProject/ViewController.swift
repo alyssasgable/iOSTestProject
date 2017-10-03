@@ -13,7 +13,7 @@ class ViewController: UITableViewController {
     @IBOutlet weak var modeBtn: UIButton!
 
     var tableObjects = [[String: Any]]()
-    
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var isHarleyRed:Bool = true
     
     struct cellObject {
@@ -27,8 +27,9 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue:("finishedDownload")), object: nil, queue: nil, using: { (notification) in
+            
             
             self.tableObjects = notification.object as! [[String: Any]]
             self.tableView.reloadData()
@@ -56,13 +57,14 @@ class ViewController: UITableViewController {
         isHarleyRed = bool
         
         let image = bool ? #imageLiteral(resourceName: "harleylight") : #imageLiteral(resourceName: "harleydark")
+        let background = bool ? UIImageView(image: #imageLiteral(resourceName: "lightBackground")) : UIImageView(image: #imageLiteral(resourceName: "darkBackground"))
         let color = bool ? UIColor.white : UIColor.black
         let textColor = bool ? UIColor.black : UIColor.white
         let mode = bool ? false : true
         
         modeBtn.setImage(image, for: .normal)
         navigationController?.navigationBar.barTintColor = color
-        tableView.backgroundColor = color
+        tableView.backgroundView = background as UIView
         UserDefaults.standard.set(mode, forKey: "mode")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue:("buttonPressed")), object: textColor)
         

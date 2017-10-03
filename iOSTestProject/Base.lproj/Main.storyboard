@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--FEED-->
+        <!--Feed-->
         <scene sceneID="7UD-J0-I5H">
             <objects>
                 <tableViewController id="Tum-8k-3qm" customClass="ViewController" customModule="iOSTestProject" sceneMemberID="viewController">
@@ -66,10 +66,10 @@
                             <outlet property="delegate" destination="Tum-8k-3qm" id="F7x-zd-DQj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="FEED" id="Dpt-mR-u7P">
+                    <navigationItem key="navigationItem" title="Feed" prompt="Click below to load feed." id="Dpt-mR-u7P">
                         <barButtonItem key="rightBarButtonItem" image="harleylight" style="done" id="Sbo-8G-WDM">
                             <view key="customView" contentMode="scaleToFill" id="k6t-pe-B1s">
-                                <rect key="frame" x="276" y="5" width="83" height="33"/>
+                                <rect key="frame" x="276" y="35" width="83" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DG-Rn-ZSu">
